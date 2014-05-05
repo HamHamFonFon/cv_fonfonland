@@ -60,21 +60,23 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 		$formExperience = $this->_generateFormExperience($this->getRequest()->getActionName() . '/id/' . $this->_idExperience);
 		$this->view->formExperiences = $formExperience;
 		
-		// Formulaire mission
+		// Formulaire mission Edition
 		$formMissionsEdit = $this->_generateFormMission();
 		$formMissionsEdit->setName('formAdminMissionsEdit')->setAction('/admin/missions/edit/'); // @TODO
 		$formMissionsEdit->getElement('id_emploi')->setValue($this->_idExperience);
 		$formMissionsEdit->getElement('date_debut')->setName("date_debut_edit");
 		$formMissionsEdit->getElement('date_fin')->setName("date_fin_edit");
+		//Zend_Debug::dump($this->_getListeCompetencesOrderByCp());
 		$formMissionsEdit->getElement('env_tech')->addMultiOptions($this->_getListeCompetencesOrderByCp());
 		$this->view->formMissionEdit = $formMissionsEdit;
 		
+		// Formulaire mission Ajout
 		$formMissionsAdd = $this->_generateFormMission();
 		$formMissionsAdd->setName('formAdminMissionsAdd')->setAction("/admin/missions/add");
 		$formMissionsAdd->getElement('id_emploi')->setValue($this->_idExperience);
 		$formMissionsAdd->getElement('date_debut')->setName("date_debut_add");
 		$formMissionsAdd->getElement('date_fin')->setName("date_fin_add");
-		$formMissionsAdd->getElement('env_tech')->addMultiOptions($this->_getListeCompetencesOrderByCp());
+		$formMissionsAdd->getElement('env_tech')->setMultiOptions($this->_getListeCompetencesOrderByCp());
 		$this->view->formMissionAdd = $formMissionsAdd;
 		
 		$this->view->idExperience = $this->_idExperience;
@@ -118,18 +120,19 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 				unset($tabInfoEmploi['missions'][$key]['date_fin']);
 			}
 			
-			Zend_Debug::dump($tabInfoEmploi['missions']);
+			//Zend_Debug::dump($tabInfoEmploi['missions'][0]['env_tech']);
 			// Recuperation des missions
 			if (count($tabInfoEmploi['missions']) > 1) {
 				$this->view->tabMissionsJson = Zend_Json::encode($tabInfoEmploi['missions']);
 				$this->view->listeMissions = array_merge(array(null => "Liste des missions"), $this->_getListesMissionsByExperience($tabInfoEmploi['missions'])); 
 				
 			} else {
-				// Si une mission, on la palce ds le formulaire
+				// Si une mission, on la place ds le formulaire
 				$this->view->listeMissions = null;
-				//Zend_Debug::dump($tabInfoEmploi['missions']);
-				$formMissionsEdit->getElement('env_tech')->setValue($tabInfoEmploi['missions'][0]['env_tech']);
+				//print_r(array_keys($tabInfoEmploi['missions'][0]['env_tech']));
 				$formMissionsEdit->populate($tabInfoEmploi['missions'][0]);
+				$formMissionsEdit->getElement('env_tech')->setValue(array_keys($tabInfoEmploi['missions'][0]['env_tech']));
+				
 			}
 		}
 	}
@@ -223,7 +226,7 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	 	$tabListeCompetencesByCp = array();
 	 	// mise en forme du tableau de données
 	 	foreach ($tabListe as $key=>$tabCompetence) {
-	 		$tab = array($tabCompetence['id_competence'] => $tabCompetence['lib_competence']);
+	 		//$tabListeCompetencesByCp[$tabCompetence['id_competence']] = $tabCompetence['lib_competence'];
 	 		$tabListeCompetencesByCp[$tabCompetence['lib_competence_principale']][$tabCompetence['id_competence']] = $tabCompetence['lib_competence'];
 	 	}
 	 	return $tabListeCompetencesByCp;
