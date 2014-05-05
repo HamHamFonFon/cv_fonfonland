@@ -1,0 +1,42 @@
+<?php echo $this->doctype() ?>
+<html>
+<head>
+    <?php echo $this->headTitle(); ?>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink()->appendStylesheet($this->baseUrl() . '/css/bootstrap.yeti.min.css')
+    							->appendStylesheet($this->baseUrl() . '/css/bootstrap-responsive.min.css')
+    							->appendStylesheet($this->baseUrl() . '/css/smoothness/jquery-ui-1.10.4.custom.min.css')
+    							->appendStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
+    							->appendStylesheet($this->baseUrl() . '/css/styles.css'); 
+
+    	// NB : ne pas appeler plusieurs fois le appendFile !!
+    	echo $this->headScript()->appendFile($this->baseUrl() . '/js/bootstrap.min.js');
+	?>
+</head>
+<body>
+	<?php echo $this->partial('header.phtml'); ?>
+	<?php
+		//Zend_Debug::dump(Zend_Auth::getInstance()->getIdentity());
+		//Zend_Debug::dump(Zend_Auth::getInstance()->getStorage()->read());
+	?>
+	<div class="container">
+		<div class="row" style="background : #EFEFEF;">
+			<section class="col-lg-8">
+				<!-- Contenu principal -->
+				<div class="well-lg">
+					<?php echo $this->layout()->content; ?>
+				</div>
+		    </section>	
+		    
+		    <aside class="col-lg-4">
+				<!-- liste de blocs -->
+				<div class="well">
+					<?php echo $this->partial('sidebar.phtml'); ?>
+				</div>
+		    </aside>
+	    </div>
+	</div>
+	
+    <?php echo $this->partial('footer.phtml'); ?>
+</body>
+</html>

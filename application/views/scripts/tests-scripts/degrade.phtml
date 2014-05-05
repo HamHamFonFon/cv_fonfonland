@@ -1,0 +1,25 @@
+<p>Code couleur : <span id="codeClick"></span></p>
+<table>
+<tr>
+<?php
+$lignes = '';
+foreach ($this->tabCouleurs as $key=>$valuesVert) {
+	$lignes .= '<tr>';
+	foreach ($valuesVert as $keyH=>$valuesHoz) {
+		//$couleur = 'rgb()';
+		//$valuesHozHex = array_map("dechex", $valuesHoz);
+		//echo '<td style="padding : 0px 1px; background-color:rgb(' . $valuesHoz[0] . ',' . $valuesHoz[1] . ',' . $valuesHoz[2] . ');">&bull;</td>';		
+		
+		$lignes .= '<td style="background-color:rgb(' . $valuesHoz[0] . ',' . $valuesHoz[1] . ',' . $valuesHoz[2] . ');">&nbsp;</td>';
+	}
+	$lignes .= '</tr>'; 
+	
+	
+}
+echo $lignes
+?>
+</tr>
+</table>
+<?php
+
+//Zend_Debug::dump($this->tabCouleurs);

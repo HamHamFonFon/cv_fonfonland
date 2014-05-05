@@ -1,0 +1,12 @@
+<header>
+	<h2><i class="fa fa-envelope-o"></i> <?php echo $this->escape($this->pageTitle); ?></h2>
+	<hr />
+</header>
+<?php
+if (isset($this->error)) {
+	echo $this->error;
+} else if (isset($this->mailOk)) {
+	echo $this->mailOk;
+}
+
+echo $this->form;

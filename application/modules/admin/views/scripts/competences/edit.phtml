@@ -1,0 +1,15 @@
+<header>
+	<h2><?php echo $this->escape($this->title); ?></h2>
+	<hr />
+</header>
+<div class="list-group">
+	<?php
+		if (isset($this->error)) {
+			echo $this->error;
+		}
+		if (isset($this->message)){
+			echo $this->message;
+		}
+		echo $this->formCompetencesEdit;
+	?>
+</div>

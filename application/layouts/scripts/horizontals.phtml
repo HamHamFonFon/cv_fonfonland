@@ -1,0 +1,69 @@
+<?php
+/**
+* @author Kanstantsin A Kamkou (2ka.by)
+* History:
+* - 21.08.2012 Bootstrap 2.1.0 corrections
+* - 31.03.2013 Acl check added
+* Source : https://gist.github.com/kkamkou/1892557
+*/
+ 
+$html = array('<ul class="nav navbar-nav">');
+ 
+foreach ($this->container as $page) {
+	// visibility of the page
+	if (!$page->isVisible() || !$this->navigation()->accept($page)) {
+		continue;
+	}
+ 
+	// dropdown
+	$dropdown = !empty($page->pages);
+	 
+	// header
+	$html[] = '<li' . ($dropdown ? ' class="dropdown"' : '') . '>';
+	 
+	if (!$dropdown) {
+		$html[] = '<a href="' . $page->getHref() . '">';
+	} else {
+		$html[] = '<a href="#" class="dropdown-toggle" data-toggle="dropdown">';
+	}
+ 
+	$html[] = $page->getLabel();
+	 
+	if ($dropdown) {
+		$html[] = '<b class="caret"></b>';
+	}
+	 
+	$html[] = '</a>';
+	 
+	if (!$dropdown) {
+		$html[] = '</li>';
+		continue;
+	}
+	 
+	$html[] = '<ul class="dropdown-menu">';
+ 
+	foreach ($page->pages as $subPage) {
+	// visibility of the sub-page
+		if (!$subPage->isVisible() || !$this->navigation()->accept($subPage, false)) {
+			continue;
+		}
+ 
+		$html[] = '<li' . ($subPage->isActive() ? ' class="active"' : '') . '>';
+		$html[] = '<a href="' . $subPage->getHref() . '">';
+ 
+		if ($subPage->get('icon')) {
+			$html[] = '<i class="icon-' . $subPage->get('icon') . '"></i>';
+		}
+ 
+		$html[] = $subPage->getLabel();
+		$html[] = "</a>";
+		$html[] = "</li>";
+	}
+ 
+	$html[] = "</ul>";
+	$html[] = "</li>";
+}
+ 
+$html[] = '</ul>';
+ 
+echo join(PHP_EOL, $html);

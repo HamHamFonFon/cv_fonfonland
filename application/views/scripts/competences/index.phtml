@@ -1,0 +1,28 @@
+<header>
+	<h2><i class="fa fa-code-fork"></i> <?php echo $this->escape($this->title); ?></h2><hr />
+</header>
+<div class="list-group">
+	<?php
+		//Zend_Debug::dump($this->tabCompetences);
+		$listes = "";
+		$i = 0;
+		foreach ($this->tabCompetences as $key=>$tabCompetences) {
+			$listes .= '<a class="list-group-item">';
+			$listes .=  '<h4 class="list-group-item-heading" id="competence_principale_' . $i . '">' . $key . '</h4>';
+			
+			//Zend_Debug::dump($tabCompetence);	
+			$tabListeCompetences = array();
+			foreach ($tabCompetences as $keyC => $tabCompetence) {
+				$tabListeCompetences[] = $tabCompetence['lib_competence'];
+			}
+			
+			$listes .=  '<p style="padding-left : 20px;" class="list-group-item-text" id="competence_' . $i . '">';
+			$listes .=  implode(', ', $tabListeCompetences);
+			$listes .=  '</p>';
+			$listes .=  '</a>';
+			
+			$i++;
+		}
+		echo $listes;
+	?>
+</div>

@@ -1,0 +1,26 @@
+<header style="width : 1170px; margin : auto;">
+	<div class="pull-right" style="text-align : right;">
+		<h4><a href="mailto:stephane.meaudre@gmail.com">stephane.meaudre@gmail.com</a></h4>
+		<div class="btn-group">
+			<a href="https://www.linkedin.com/profile/view?id=335802926&trk=nav_responsive_tab_profile" class="btn btn-default" target="_blank"title="Profil Linked In"><i class="fa fa-linkedin"></i></a>
+			<a href="http://www.viadeo.com/profile/00225a0jihpn5yef" class="btn btn-default" target="_blank" title="Profil Viadeo"><i class="fa fa-vimeo-square"></i></a>
+			<a href="<?php echo $this->baseUrl(); ?>/documents/cv/type/pdf" class="btn btn-default" title="Télécharger le CV au format PDF"><i class="fa fa-download"></i> PDF</a>
+			<a href="<?php echo $this->baseUrl(); ?>/documents/cv/type/doc" class="btn btn-default disabled" title="Télécharger le CV au format Word"><i class="fa fa-download"></i> Word</a>
+		</div>
+
+	</div>
+	<div style="margin : 0px 10px;">
+		<h1>MEAUDRE St&eacute;phane</h1>
+		<h3>Ingénieur d'études et développement PHP</h3>
+	</div>
+</header>
+
+<nav role="navigation" class="navbar navbar-default" style="margin-bottom : 0;">
+	<div class="container">
+		<div id="navbarCollapse" class="collapse navbar-collapse">
+			<?php
+				echo $this->navigation()->menu()->setPartial('horizontals.phtml')->render();
+			?>
+		</div>	
+	</div>		
+</nav>

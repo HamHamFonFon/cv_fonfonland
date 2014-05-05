@@ -1,0 +1,50 @@
+body {
+    background: url("http://www.abbeydale.net/images/code.png") fixed no-repeat bottom left;
+}
+
+.navbar.floatable {
+    position: fixed;
+    top : 0;
+    margin : auto;
+    z-index : 10000;
+    width: 100%;
+}
+
+/* Surcharge de la class bootstrap */
+.list-group {
+    font-size : 13px;
+}
+
+.presentation {
+    text-align : justify;
+    font-size : 14px;
+}
+
+.presentation img {
+    width : 150px;
+    
+    background-color: #FFFFFF;
+    border: 1px solid #C0C0C0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    float: left;
+    margin: 0 20px 5px 0;
+    padding: 4px;
+}
+
+.footer {
+    background : url('../img/fond_bgd.gif') #000000 repeat;
+    position : fixed;
+    bottom: 0;
+    width: 100%; 
+    height : 20px;
+    border : 1px 0px 0px 0px solid #ff0000;   
+}
+.footer p {
+    color : #CECECE;
+    text-align : justify;
+    padding : 0px 20px;
+    font-size : 12px;
+}

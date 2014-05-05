@@ -1,0 +1,95 @@
+#navigation { /*conteneur du menu*/
+	padding: 0;
+	margin : auto;
+	clear:both;
+	width:910px;
+	height:51px;
+	background: #333;
+	border: 3px solid;
+	border-color : #666;
+	/*border-top : none;
+	border-bottom : none;*/
+}
+
+ul.nav-main li { /*règles générales des items de liste */
+list-style: none;
+margin: 0;
+border-right:solid 1px #666;
+}
+
+ul.nav-main { /*règles des items principaux*/
+position: relative;
+z-index: 597;
+}
+
+ul.nav-main li:hover > ul { /*apparition des sous-listes au survol de l'item principal ul*/
+visibility: visible;
+}
+
+ul.nav-main li:hover { /*design des items de liste au survol*/
+position: relative;
+z-index: 599;
+cursor: pointer;
+background: #666;
+}
+
+ul.nav-main li { /*positionnement, dimensions, couleurs et textes des items de liste*/
+float:left;
+display:block;
+height: 51px;
+color: #999;
+font: 14px Arial, Helvetica, sans-serif;
+}
+
+ul.nav-main li a, ul.nav-main li span { /*positionnement, dimensions, couleurs et textes des items de liste intégrant une redirection url*/
+display: block;
+padding: 16px 16px 0 16px;
+height: 35px;
+color: #999;
+font: 14px Arial, Helvetica, sans-serif;
+text-decoration:none;
+}
+
+ul.nav-main li a:hover { /* couleurs des items de liste au survol*/
+color:#D6D6D6;
+}
+
+ul.nav-main *.list { /*décalage entre chaque items principaux*/
+padding-right: 22px;
+}
+
+ul.nav-sub { /*règles de la liste ul de sous menus*/
+visibility: hidden;
+position: absolute;
+padding:10px;
+top: 51px;
+left: -2px;
+z-index: 598;
+background: #333;
+border-right: 1px solid #000;
+border-bottom: 1px solid #000;
+border-left: 1px solid #000;
+}
+
+ul.nav-sub li { /* regles des items de liste sous menu */
+list-style:none;
+display:block;
+padding: 0;
+height: 27px;
+float: none;
+width:145px;
+border-bottom: 1px solid #5a5a5a;
+border-right:none;
+background: none;
+}
+
+ul.nav-sub li a { /* règles des items de liste de sous menus intégrant une redirection url */
+list-style:none;
+display:block;
+padding: 6px 5px 6px 5px;
+height: 15px;
+float: none;
+width:145px;
+background: none;
+font: 12px Arial, Helvetica, sans-serif;
+}

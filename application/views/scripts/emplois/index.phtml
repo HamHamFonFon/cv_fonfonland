@@ -1,0 +1,53 @@
+<header>
+	<h2><i class="fa fa-pencil"></i> <?php echo $this->escape($this->title); ?></h2><hr />
+</header>
+<?php
+	//Zend_Debug::dump($this->tabExperiences);
+?>
+<div class="list-group">
+<?php
+	$listes = "";
+	$i = 0;
+	foreach ($this->tabExperiences as $experience) {
+		
+		$listes .= '<a href="#' . $i .'" id="emploi_' . $i .'" class="list-group-item">';
+		$listes .= '<h4 id="h4_emploi_' . $i .'" class="list-group-item-heading"><i class="fa fa-angle-right"></i>&nbsp;' . $experience['lib_type_poste'] . ' - <strong>' . $experience['lib_emploi'] . '</strong>, ' . $experience['lib_type_societe'] . '</h4>';
+		
+		$listes .= '<div class="groupe_missions">';
+		foreach ($experience['missions'] as $keyM=>$mission) {
+			$listes .= '<div id="mission_' . $keyM . '">';
+			if (isset($mission['lib_mission']) && !empty($mission['lib_mission'])) {
+				$listes .= '<h5><strong>&bull; ' . $mission['lib_mission'] . '</strong></h5>';
+			}
+			
+			// Dates et Intitulé mission
+			$listes .= '<p style="margin : 5px 0px;" class="list-group-item-text">';
+			$listes .= $this->affichageDate($mission['date_debut']) . ' - ' . $this->affichageDate($mission['date_fin']) . '&nbsp;:&nbsp;';
+			$listes .= $mission['intitule_mission'];
+			$listes .= '</p>';
+			
+			// Contenu de la mission
+			$listes .= '<p style="margin : 5px 0px;" class="list-group-item-text"><strong>Mission :</strong><br />';
+			$listes .= nl2br($mission['contenu_mission']);
+			$listes .= '</p>';
+			
+			// Environnement technique
+			if (isset($mission['env_tech']) && count($mission['env_tech']) > 0) {
+				$listes .= '<p style="margin : 5px 0px;" class="list-group-item-text"><strong>Environnement technique :</strong><br />';
+				//$listes .= Zend_Debug::dump($mission['env_tech']);
+				$listes .= implode(', ', $mission['env_tech']);
+				$listes .= '</p>';
+			}
+			
+			
+			$listes .= '</div>';
+			
+		}
+		$listes .= '</div>';
+		$listes .= '</a>';
+		//Zend_Debug::dump($experience['missions']);
+		$i++;
+	}
+	echo $listes;
+?>
+</div>

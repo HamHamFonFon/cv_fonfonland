@@ -1,0 +1,10 @@
+<header>
+	<h2><i class="fa fa-user"></i> <?php echo $this->escape($this->pageTitle); ?></h2><hr />
+</header>
+<?php
+	if (isset($this->message)) {
+		echo $this->message;	
+	}
+	
+	
+	echo $this->formConnexion;

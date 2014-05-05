@@ -1,0 +1,35 @@
+<header>
+	<h2><?php echo $this->escape($this->title); ?></h2>
+	<hr />
+</header>
+<div class="list-group">
+	<a type="button" href="<?php echo $this->linkAdd; ?>" class="btn btn-primary btn-sm">Ajouter une expérience</a>
+	
+	<table class="table table-striped table-hover ">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Experience</th>
+				<th>Poste</th>
+				<th>Position</th>
+				<th colspan="2">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+			$lignes = '';
+			foreach ($this->tabExperiences as $key=>$experience) {
+				$lignes .= '<tr>';
+				$lignes .= '<td>' . $experience['id_emploi'] . '</td>';  
+				$lignes .= '<td>' . $experience['lib_emploi'] . '</td>';  
+				$lignes .= '<td>' . $experience['lib_type_poste'] . '</td>';  
+				$lignes .= '<td>' . $experience['tri_emploi'] . '</td>';  
+				$lignes .= '<td><a type="button" href="' . $experience['linkEdit'] .'" class="btn btn-primary btn-xs">Modifier</a></td>';  
+				$lignes .= '<td><a type="button" href="' . $experience['linkDel'] . '" class="btn btn-primary btn-xs">Supprimer</a></td>';  
+				$lignes .= '</tr>'; 
+			}
+			echo $lignes;
+		?>
+		</tbody>
+	</table>
+</div>
