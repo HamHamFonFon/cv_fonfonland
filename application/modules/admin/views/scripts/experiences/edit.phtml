@@ -27,12 +27,19 @@
 			<article>
 				<p>
 				<?php
+				
+					$btnDeleteMission = '<a type="button" href="" class="btn btn-primary btn-sm">Suppression mission</a>';
+					
 					if ($this->listeMissions != null) {
 						$stbMission = new Zend_Form_Element_Select('choixMission');
 						$stbMission->setLabel('Sélectionner une mission')
 							->setOptions(array('class' => 'form-control'))
-							->setMultiOptions($this->listeMissions);
+							->setMultiOptions($this->listeMissions)
+							//->removeDecorator()
+							;
 						echo $stbMission;
+						
+						//echo $btnDeleteMission;
 				?>
 				</p>
 				<hr>

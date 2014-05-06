@@ -9,8 +9,8 @@ class Fonfonblog_Controller_FormatageDate
 	// Conversion d une date dd/mm/yyyy en yyyy-mm-dd pour la BD
 	public function dateToDb ($date)
 	{
-		$dateDb = new DateTime($date);
-		return $dateDb->format('Y-m-d H:i:s');
+		$dateDb = new Zend_Date($date, "dd/mm/yyyy", 'fr_FR');
+		return $dateDb->get('Y-m-d H:m:s');
 	}
 	
 	public function dateToInput($date)

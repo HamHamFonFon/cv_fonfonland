@@ -4,7 +4,7 @@ $(document).ready(function () {
 		// Verification de l existance de la liste deroulante
 		if ($("#choixMission").length) {
 			// Desactivation du formulaire
-			$("#formAdminMissionsEdit input, textarea, select[multiple=multiple]").each(function () {
+			$("#formAdminMissionsEdit input, #formAdminMissionsEdit textarea, #formAdminMissionsEdit select[multiple=multiple]").each(function () {
 				$(this).prop("disabled", true);
 			});
 		}
@@ -17,32 +17,36 @@ $(document).ready(function () {
 	
 	// Detection du click sur add
 	$("a[href=#addMission]").parent().click(function() {
-	   $("#formAdminMissionsAdd input, textarea, select[multiple=multiple]").each(function () {
+	   $("#formAdminMissionsAdd input, #formAdminMissionsAdd textarea").each(function () {
             $(this).prop("disabled", false);
+            
         });
+	   //$("#formAdminMissionsAdd select").prop("selected", false);
+	   $("#formAdminMissionsAdd select option[selected='selected']").removeAttr("selected"); // on enleve les attribut selected qui peuvent exister
 	});
 });
 
 // Affiche les donnees de la mission selectionnee
 function affichageMission(idMission) {
-	$("#formAdminMissionsEdit input[type!=submit], textarea").each(function () {
+	
+	// Desactivation des elements du formulaire
+	$("#formAdminMissionsEdit input[type!=submit], #formAdminMissionsEdit textarea").each(function () {
 		$(this).val("");
 		$(this).prop("disabled", true);
+		
 	});
-	
-	/*$("#formAdminMissionsEdit select").each(function () {
-		$(this).removeAttr('selected')
-	});*/
+	$("#formAdminMissionsEdit select").prop("disabled", true);
+	$("#formAdminMissionsEdit select").prop("selected", false); // si select
 	
 	// id selectionne
 	if (!isNaN(idMission)) {
 		var dataJson = jQuery.parseJSON($("#json_mission").val())[idMission];
 		$.each(dataJson, function (key, val) {
 			if (typeof val == "object") {
-				$("#"+key).find('option:selected').removeAttr("selected"); // on enleve tous les selected
+				//$("#"+key).find('option:selected').removeAttr("selected"); // on enleve tous les selected
+				$("#"+ key +" option[selected='selected']").removeAttr("selected");
 				$.each(val, function (keyCp, valCp) {
-					$("#"+key + " option[value='"+keyCp+"']").attr("selected", "selected");
-					//$("#"+key).removeAttr('selected').filter('[value='+keyCp+']').attr("selected", "selected");
+					$("#"+key + " option[value='"+keyCp+"']").attr("selected", "selected").prop("selected", true);
 				});
 				
 				$("#"+key).prop("disabled", false);
@@ -53,7 +57,6 @@ function affichageMission(idMission) {
 			}
 			$("input[type=submit]").prop("disabled", false);
 		});
-		
 	}
 }
 

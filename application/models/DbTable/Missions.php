@@ -18,7 +18,8 @@ class Application_Model_DbTable_Missions extends Zend_Db_Table_Abstract
 	public function getMissionsByIdEmploi ($idEmploi)
 	{
 		$select = $this->select()->from($this->_name, array('id_mission'));
-		$select->where('id_emploi = ?', $idEmploi);
+		$select->where('id_emploi = ?', $idEmploi)
+				->order("date_debut desc");
 		$rowSet = $this->fetchAll($select);
 		
 		$tabMissionArray = array();
