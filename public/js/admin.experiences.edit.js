@@ -30,14 +30,30 @@ function affichageMission(idMission) {
 		$(this).prop("disabled", true);
 	});
 	
+	/*$("#formAdminMissionsEdit select").each(function () {
+		$(this).removeAttr('selected')
+	});*/
+	
 	// id selectionne
 	if (!isNaN(idMission)) {
 		var dataJson = jQuery.parseJSON($("#json_mission").val())[idMission];
 		$.each(dataJson, function (key, val) {
-			$("#"+key).val(val);
-			$("#"+key).prop("disabled", false);
+			if (typeof val == "object") {
+				$("#"+key).find('option:selected').removeAttr("selected"); // on enleve tous les selected
+				$.each(val, function (keyCp, valCp) {
+					$("#"+key + " option[value='"+keyCp+"']").attr("selected", "selected");
+					//$("#"+key).removeAttr('selected').filter('[value='+keyCp+']').attr("selected", "selected");
+				});
+				
+				$("#"+key).prop("disabled", false);
+			} else if (typeof val == "string") {
+				$("#"+key).val(val);
+				$("#"+key).prop("disabled", false);
+				
+			}
 			$("input[type=submit]").prop("disabled", false);
 		});
+		
 	}
 }
 
