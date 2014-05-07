@@ -14,6 +14,12 @@ class Fonfonblog_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract
 	const FAIL_ACL_ACTION     = 'index';
 	const FAIL_ACL_CONTROLLER = 'index';
 	
+	/**
+	 * Constructeur
+	 * 
+	 * @param Zend_Acl $acl : acl
+	 * @param Zend_Auth $auth : instance de zend_auth
+	 */
 	public function __construct (Zend_Acl $acl, Zend_Auth $auth)
 	{
 		// Recuperation de l'instance de connexion
@@ -29,6 +35,11 @@ class Fonfonblog_Controller_Plugin_ACL extends Zend_Controller_Plugin_Abstract
 		$this->_defaultRole = 'guest';
 	}
 	
+	/**
+	 * @param Zend_Controller_Request_Abstract $request : requete à verifier
+	 * 
+	 * @return redirection selon autorisation
+	 */
 	public function preDispatch(Zend_Controller_Request_Abstract $request)
 	{
 		$fflsession = new Zend_Session_Namespace('fflsession');

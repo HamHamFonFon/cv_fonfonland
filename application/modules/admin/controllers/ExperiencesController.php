@@ -51,6 +51,11 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 		}
 	}
 	
+	/**
+	 * Action edition d une experience
+	 * 
+	 * @return
+	 */
 	public function editAction ()
 	{
 		$this->_idExperience = $this->getRequest()->getParam('id');
@@ -113,8 +118,8 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 			$oGestionDate = new Fonfonblog_Controller_FormatageDate();
 			
 			foreach ($tabInfoEmploi['missions'] as $key=>$mission) {
-				$tabInfoEmploi['missions'][$key]['date_debut_edit'] = $oGestionDate->dateToInput($mission['date_debut']);
-				$tabInfoEmploi['missions'][$key]['date_fin_edit'] = $oGestionDate->dateToInput($mission['date_fin']);
+				$tabInfoEmploi['missions'][$key]['date_debut_edit'] = (isset($mission['date_debut'])) ? $oGestionDate->dateToInput($mission['date_debut']) : null;
+				$tabInfoEmploi['missions'][$key]['date_fin_edit'] = (isset($mission['date_fin'])) ? $oGestionDate->dateToInput($mission['date_fin']) : null;
 				
 				unset($tabInfoEmploi['missions'][$key]['date_debut']);
 				unset($tabInfoEmploi['missions'][$key]['date_fin']);
@@ -132,11 +137,17 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 				//print_r(array_keys($tabInfoEmploi['missions'][0]['env_tech']));
 				$formMissionsEdit->populate($tabInfoEmploi['missions'][0]);
 				$formMissionsEdit->getElement('env_tech')->setValue(array_keys($tabInfoEmploi['missions'][0]['env_tech']));
-				
 			}
+			
+			// Pour la section deleteMission, creation d'une liste des missions
+			$this->view->listeMissionsForDel = $this->_getListeMissionsForDelete($tabInfoEmploi['missions']);
+			$this->view->linkDelMission = $this->_helper->linkControllerMVC('deleteMission', array("emploi" => $this->_idExperience, 'id' => ''));
 		}
 	}
 	
+	/**
+	 * Action de suppression d une experience/emploi
+	 */
 	public function deleteAction ()
 	{
 		$this->_helper->layout()->disableLayout(); 
@@ -160,6 +171,8 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	
 	/**
 	 * Creation du formulaire commun
+	 * @param string $action
+	 * @return Zend_Form $oformExperiences
 	 */
 	private function _generateFormExperience($action)
 	{
@@ -178,6 +191,7 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	
 	/**
 	 * Generation de la liste deroulantes de types de postes
+	 * @return array
 	 */
 	private function _getListTypePostes ()
 	{
@@ -187,6 +201,7 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	
 	/**
 	 * Generation de la liste de type de societes
+	 * @return array
 	 */
 	private function _getListTypeSocietes ()
 	{
@@ -196,6 +211,7 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	
 	/**
 	 * Generation du formulaire de mission
+	 * @return Zend_Form formulaire de mission
 	 */
 	 private function _generateFormMission ()
 	 {
@@ -203,8 +219,10 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	 	return $oFormMission;
 	 }
 	 
-	 	/**
+	/**
 	 * Generation d'une liste deroulante de missions
+	 * @param array $tabMissions tableaux des missions
+	 * @return array tableau des libelle de missions
 	 */
 	private function _getListesMissionsByExperience ($tabMissions)
 	{
@@ -216,7 +234,25 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	}
 	
 	/**
+	 * Generation d une liste deroulante de mission idMission => libMission
+	 * Utilise pour la suppression d une mission
+	 * @param array $tabMissions
+	 * @return array $listeMissionForDel
+	 */
+	private function _getListeMissionsForDelete ($tabMissions)
+	{
+		$listeMissionForDel = array();
+		foreach ($tabMissions as $key=>$tabMission) {
+			$listeMissionForDel[$tabMission['id_mission']] = (isset($tabMission['lib_mission']) && !empty($tabMission['lib_mission'])) ? $tabMission['lib_mission'] : $tabMission['intitule_mission'];
+		}
+		return $listeMissionForDel;
+	}
+	
+	/**
 	 * Generation de la liste de competences classées par competences principales
+	 * utilisée pour le formulaire "Missions"
+	 * 
+	 * @return array $tabListeCompetencesByCp
 	 */
 	 private function _getListeCompetencesOrderByCp ()
 	 {
@@ -230,5 +266,29 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	 		$tabListeCompetencesByCp[$tabCompetence['lib_competence_principale']][$tabCompetence['id_competence']] = $tabCompetence['lib_competence'];
 	 	}
 	 	return $tabListeCompetencesByCp;
+	 }
+	 
+	 /**
+	  * Suppression d une mission
+	  * 
+	  * @param getParam $idMission
+	  */
+	 public function deleteMissionAction ()
+	 {
+	 	$this->_helper->layout()->disableLayout(); 
+		$this->_helper->viewRenderer->setNoRender(true);
+		
+	 	$idMission = $this->getRequest()->getParam('id');
+	 	$idEmploi = $this->getRequest()->getParam('emploi');
+	 	
+	 	$oAdminMissionModel = new Admin_Model_DbTable_Missions();
+	 	$oAdminMissionModel->setId($idMission);
+	 	if ($oAdminMissionModel->deleteMission()) {
+	 		$this->view->message = $this->_helper->messages("Suppression de la mission réussie.", Zend_Registry::getInstance()->constants->message->type->ok);      
+	 	} else {
+	 		$this->view->error = $this->_helper->messages("Problème de suppression.", Zend_Registry::getInstance()->constants->message->type->error);      
+	 	}
+	 	
+	 	$this->_forward("edit", "experiences", "admin", array("id" => $idEmploi));
 	 }
 }

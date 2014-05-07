@@ -2,6 +2,10 @@
 class Fonfonblog_Controller_Navigation 
 {
 	
+	/**
+	 * Créé et retourne un tableau complet pour le menu
+	 * @return array tableau
+	 */
 	public function getMenuHeader () 
 	{
 		$tab = array(
@@ -62,6 +66,10 @@ class Fonfonblog_Controller_Navigation
 		);
 	}
 	
+	/**
+	 * Menu utilisateur non connecte
+	 * @return array
+	 */
 	private function _menuNoUser ()
 	{
 		return array(
@@ -73,7 +81,11 @@ class Fonfonblog_Controller_Navigation
 		);
 	}
 
-	
+	/**
+	 * Genere le menu d adminsitration
+	 * 
+	 * @return array
+	 */
 	private function _menuAccessAdministration ()
 	{
 		return array( 

@@ -1,5 +1,5 @@
 <header>
-	<h2><?php echo $this->escape($this->title); ?></h2>
+	<h2><i class="fa fa-pencil-square-o"></i> <?php echo $this->escape($this->title); ?></h2>
 	<hr />
 </header>
 <div class="list-group">
@@ -12,6 +12,7 @@
 	  <li class="active"><a href="#frmEdit" data-toggle="tab">Editer</a></li>
 	  <li><a href="#editMission" data-toggle="tab">Editer une mission</a></li>
 	  <li><a href="#addMission" data-toggle="tab">Ajouter une mission</a></li>
+	  <li><a href="#delMission" data-toggle="tab">Supprimer une mission</a></li>
 	</ul>
 	
 	<div id="myTabContent" class="tab-content">
@@ -21,9 +22,9 @@
 		</div>
 		
 		<div class="tab-pane fade" id="editMission">
-			<header>
+			<!-- header>
 				<h3>Modifier une mission</h3><hr />
-			</header>
+			</header -->
 			<article>
 				<p>
 				<?php
@@ -50,20 +51,48 @@
 						echo $json;
 					}
 					echo $this->formMissionEdit;
-					
-					//$this->formMissionEdit->addElement($listeCompetences);
 				?>
 			</article>
 		</div>
 		
 		<div class="tab-pane fade" id="addMission">
-			<header>
+			<!-- header>
 				<h3>Ajouter une mission</h3><hr />
-			</header>
+			</header -->
 			<article>
 			<?php
 				echo $this->formMissionAdd;
 			?>
+			</article>
+		</div>
+		
+		<div class="tab-pane fade" id="delMission">
+			<!-- header>
+				<h3>Supprimer une mission</h3><hr />
+			</header -->
+			<article>
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Mission</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php
+						$ligneMission = "";
+						foreach ($this->listeMissionsForDel as $idMission=>$mission) {
+							$ligneMission .= '<tr>';
+							$ligneMission .= '<td>' . $idMission . '</td>';
+							$ligneMission .= '<td>' . $mission . '</td>';
+							$ligneMission .= '<td><a type="button" href="' . $this->linkDelMission . $idMission . '" class="btn btn-primary btn-xs">Supprimer</a></td>';
+							$ligneMission .= '</tr>';
+						}
+						echo $ligneMission;
+					?>
+					</tbody>
+				</table>
 			</article>
 		</div>
 	</div>

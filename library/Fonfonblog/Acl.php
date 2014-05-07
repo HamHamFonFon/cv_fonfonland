@@ -13,7 +13,9 @@ class Fonfonblog_Acl extends Zend_Acl
 		$this->_initAllow();
 	}
 	
-	// Ajout des rôles
+	/**
+	 * Ajout des rôles
+	 */
 	private function _initRoles ()
 	{
 		$this->addRole(new Zend_Acl_Role('guest'));
@@ -22,7 +24,9 @@ class Fonfonblog_Acl extends Zend_Acl
 		$this->addRole(new Zend_Acl_Role('administrateur'), 'moderateur');
 	}
 	
-	// Ajout des ressources
+	/**
+	 * Ajout des ressources
+	 */
 	private function _initRessources ()
 	{
 		// Controllers
@@ -41,7 +45,9 @@ class Fonfonblog_Acl extends Zend_Acl
 		
 	}
 	
-	// Ajout des ressources propres au module d'administration
+	/**
+	 * Ajout des ressources propres au module d'administration
+	 */
 	private function _initRessourcesAdmin()
 	{
 		$this->add(new Zend_Acl_Resource('admin_index'));
@@ -50,7 +56,9 @@ class Fonfonblog_Acl extends Zend_Acl
 		$this->add(new Zend_Acl_Resource('admin_missions'));
 	}
 	
-	// Autorisations
+	/**
+	 * Autorisations d acces
+	 */
 	private function _initAllow ()
 	{
 		$this->allow('guest', 'error', 'error');
@@ -66,12 +74,13 @@ class Fonfonblog_Acl extends Zend_Acl
 		$this->allow('utilisateur', 'utilisateurs', 'view');
 		
 		// Autorisation moderateur
+		//$this->allow('moderateur', );
 		
 		// Autorisation administrateur
 		$this->allow('administrateur', 'administration');
 		$this->allow('administrateur', 'admin_index', array('index'));
 		$this->allow('administrateur', 'admin_competences', array('list', 'edit', 'add', 'delete'));
-		$this->allow('administrateur', 'admin_experiences', array('list', 'edit', 'add', 'delete'));
+		$this->allow('administrateur', 'admin_experiences', array('list', 'edit', 'add', 'delete', 'delete-mission'));
 		$this->allow('administrateur', 'admin_missions', array('edit', 'add', 'delete'));
 	}
 }

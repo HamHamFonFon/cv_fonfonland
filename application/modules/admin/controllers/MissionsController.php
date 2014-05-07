@@ -61,8 +61,8 @@ class Admin_MissionsController extends Zend_Controller_Action
             	'id_mission = ?' => $dataMissions['id_mission'],
             );
 
-			Zend_Debug::dump($dataCpMissions);
-			Zend_Debug::dump($dataMissions);
+			//Zend_Debug::dump($dataCpMissions);
+			//Zend_Debug::dump($dataMissions);
 			//exit;
 			$linkToRedirect = new Zend_Navigation_Page_Mvc(array( 
 				'module' => $this->getRequest()->getModuleName(),
@@ -94,21 +94,21 @@ class Admin_MissionsController extends Zend_Controller_Action
 	{
 		$dataMission = $data;
 		$dataCpByMissions = array();
-		
+		Zend_Debug::dump($dataMission); exit;
 		// Mise en forme des dates
 		$oGestionDate = new Fonfonblog_Controller_FormatageDate();
 		
 		if ($type == "add") {
-			$dataMission['date_debut'] = $oGestionDate->dateToDb($dataMission['date_debut_add']);
-			$dataMission['date_fin'] = $oGestionDate->dateToDb($dataMission['date_fin_add']);
+			$dataMission['date_debut'] = (!empty($dataMission['date_debut_add'])) ? $oGestionDate->dateToDb($dataMission['date_debut_add']) : null;
+			$dataMission['date_fin'] = (!empty($dataMission['date_fin_add'])) ? $oGestionDate->dateToDb($dataMission['date_fin_add']) : null;
 			
 			unset($dataMission['date_debut_add']);
 			unset($dataMission['date_fin_add']);
 			unset($dataMission['id_mission']);
 			
 		} else if ($type == "edit") {
-			$dataMission['date_debut'] = $oGestionDate->dateToDb($dataMission['date_debut_edit']);
-			$dataMission['date_fin'] = $oGestionDate->dateToDb($dataMission['date_fin_edit']);
+			$dataMission['date_debut'] = (!empty($dataMission['date_debut_edit'])) ? $oGestionDate->dateToDb($dataMission['date_debut_edit']) : null;
+			$dataMission['date_fin'] = (!empty($dataMission['date_fin_edit'])) ? $oGestionDate->dateToDb($dataMission['date_fin_edit']) : null;
 			unset($dataMission['date_debut_edit']);
 			unset($dataMission['date_fin_edit']);
 		}
@@ -121,5 +121,16 @@ class Admin_MissionsController extends Zend_Controller_Action
 			
 		return array($dataMission, $dataCpByMissions);			
 	}
+	
+	/**
+	 * Suppression d une mission
+	 */
+	/*public function deleteAction ($idMission)
+	{
+		$this->_helper->layout()->disableLayout(); 
+		$this->_helper->viewRenderer->setNoRender(true);
+	    			
+		$idMission = $this->getRequest()->getParam('id');
+	}*/
 	
 }
