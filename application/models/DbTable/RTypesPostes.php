@@ -5,7 +5,8 @@ class Application_Model_DbTable_RTypesPostes extends Zend_Db_Table_Abstract
 	protected $_primary = "id_type_poste";
 	
 	/**
-	 * Retourne une liste de type clé/valeur
+	 * Liste de type clé/valeur
+	 * @return array
 	 */
 	public function getListe ()
 	{

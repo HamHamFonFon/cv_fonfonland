@@ -1,3 +1,6 @@
+<?php
+	$acl = new Fonfonblog_Acl();
+?>
 <header>
 	<h2><i class="fa fa-list-alt"></i> <?php echo $this->escape($this->title); ?></h2>
 	<hr />
@@ -31,7 +34,11 @@
 				$lignes .= '<td>' . $competence['lib_competence'] . '</td>';  
 				$lignes .= '<td>' . $competence['lib_competence_principale'] . '</td>';  
 				$lignes .= '<td><a type="button" href="' . $competence['linkEdit'] .'" class="btn btn-primary btn-xs">Modifier</a></td>';  
-				$lignes .= '<td><a type="button" href="' . $competence['linkDel'] . '" class="btn btn-primary btn-xs">Supprimer</a></td>';  
+				if ($acl->isAllowed(Zend_Auth::getInstance()->getStorage()->read()->roles, 'btnFormAdministration')) {
+					$lignes .= '<td><a type="button" href="' . $competence['linkDel'] . '" class="btn btn-primary btn-xs">Supprimer</a></td>';  
+				} else {
+					$lignes .= '<td><a type="button" href="#" class="btn btn-primary btn-xs">Supprimer</a></td>';
+				}
 				$lignes .= '</tr>'; 
 			}
 			echo $lignes;

@@ -20,6 +20,8 @@ class Application_Model_DbTable_Emplois extends Zend_Db_Table_Abstract
 	
 	/**
 	 * Retourne la liste complet des emplois
+	 * 
+	 * @return array : $_tabExperiences
 	 */
 	public function getAllEmplois ()
 	{

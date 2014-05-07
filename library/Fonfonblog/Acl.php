@@ -54,6 +54,8 @@ class Fonfonblog_Acl extends Zend_Acl
 		$this->add(new Zend_Acl_Resource('admin_competences'));
 		$this->add(new Zend_Acl_Resource('admin_experiences'));
 		$this->add(new Zend_Acl_Resource('admin_missions'));
+		
+		$this->add(new Zend_Acl_Resource('btnFormAdministration')); // Test d autorisation d acces bouton des formulaire
 	}
 	
 	/**
@@ -74,13 +76,19 @@ class Fonfonblog_Acl extends Zend_Acl
 		$this->allow('utilisateur', 'utilisateurs', 'view');
 		
 		// Autorisation moderateur
-		//$this->allow('moderateur', );
+		$this->allow('moderateur', 'administration');
+		$this->allow('moderateur', 'admin_index', array('index'));
+		$this->allow('moderateur', 'admin_competences', array('list', 'edit', 'add', 'delete'));
+		$this->allow('moderateur', 'admin_experiences', array('list', 'edit', 'add', 'delete', 'delete-mission'));
+		$this->allow('moderateur', 'admin_missions', array('edit', 'add', 'delete'));
 		
 		// Autorisation administrateur
-		$this->allow('administrateur', 'administration');
-		$this->allow('administrateur', 'admin_index', array('index'));
-		$this->allow('administrateur', 'admin_competences', array('list', 'edit', 'add', 'delete'));
-		$this->allow('administrateur', 'admin_experiences', array('list', 'edit', 'add', 'delete', 'delete-mission'));
-		$this->allow('administrateur', 'admin_missions', array('edit', 'add', 'delete'));
+		$this->allow('administrateur', 'btnFormAdministration');
+		
+		//$this->allow('administrateur', 'administration');
+		//$this->allow('administrateur', 'admin_index', array('index'));
+		//$this->allow('administrateur', 'admin_competences', array('list', 'edit', 'add', 'delete'));
+		//$this->allow('administrateur', 'admin_experiences', array('list', 'edit', 'add', 'delete', 'delete-mission'));
+		//$this->allow('administrateur', 'admin_missions', array('edit', 'add', 'delete'));
 	}
 }

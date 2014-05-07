@@ -29,6 +29,9 @@ class Application_Form_Connexion extends Zend_Form
         //array(array('row' => 'HtmlTag'), array('tag' => 'div')),
     );*/
 	
+	/**
+	 * Creation du formulaire de connexion
+	 */
 	public function init()
 	{
 		$this->setAction('/auth/login');

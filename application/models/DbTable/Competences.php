@@ -7,6 +7,8 @@ class Application_Model_DbTable_Competences extends Zend_Db_Table_Abstract
 	
 	/**
 	 * Retourne le contenu de la table competence
+	 * 
+	 * @return resultat de requete SQL 
 	 */
 	public function getAllCompetences ()
 	{
@@ -18,8 +20,11 @@ class Application_Model_DbTable_Competences extends Zend_Db_Table_Abstract
 	}
 	
 	
-	/*
+	/**
 	 * Retourne les informations d'une competence
+	 * @param integer $idComptence
+	 * 
+	 * @return array tableau des donnees d'une competence
 	 */
 	public function getInfosCompetences ($idCompetence)
 	{

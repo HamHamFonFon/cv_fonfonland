@@ -1,7 +1,9 @@
 <?php
 class ContactController extends Zend_Controller_Action
 {
-	
+	/**
+	 * Page de formulaire de contact
+	 */
 	public function indexAction ()
 	{
 		$this->view->pageTitle = "Me contacter";

@@ -4,6 +4,8 @@ class Admin_Form_Experiences extends Zend_Form
 	
 	public function init()
 	{
+		$acl = new Fonfonblog_Acl();
+		
 		$this->setMethod('post');
 		$this->setName('experienceAdmin');
 		$this->setOptions(array('class' => 'form-horizontal'));
@@ -59,10 +61,18 @@ class Admin_Form_Experiences extends Zend_Form
 						;
 		$this->addElement($libPosition);
 		
-		$submit = new Zend_Form_Element_Submit('Envoyer');
-		$submit->setAttrib('id', 'submitFrmInscription');
-		$submit->setOptions(array('class' => 'btn btn-primary'));
-		$this->addElement($submit);
+		if ($acl->isAllowed(Zend_Auth::getInstance()->getStorage()->read()->roles, 'btnFormAdministration')) {
+			$submit = new Zend_Form_Element_Submit('Envoyer');
+			$submit->setAttrib('id', 'submitFrmInscription');
+			$submit->setOptions(array('class' => 'btn btn-primary'));
+			$this->addElement($submit);
+		} else {
+			$submit = new Zend_Form_Element_Button('Envoyer');
+			$submit->setOptions(array('class' => 'btn btn-primary'));
+			$this->addElement($submit);
+		}
+		
+		
 		
 	}
 	

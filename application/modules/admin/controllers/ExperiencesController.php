@@ -6,7 +6,6 @@ class Admin_ExperiencesController extends Zend_Controller_Action
 	
 	public function init()
 	{
-		
 	}
 	
 	public function listAction ()

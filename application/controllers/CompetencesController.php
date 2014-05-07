@@ -10,12 +10,20 @@ class CompetencesController extends Zend_Controller_Action
 		$response->insert('sidebar', $this->view->render('sidebar.phtml'));	
     }*/
 	
+	/**
+	 * Liste les competences informatiques
+	 */
 	public function indexAction ()
 	{
 		$this->view->title = "Compétences informatique";
 		$this->view->tabCompetences = $this->_getCompetences();
 	}
 	
+	/**
+	 * Recherche de toutes les competences
+	 * 
+	 * @return array tableau de comeptences regroupés par comeptences principales
+	 */
 	private function _getCompetences ()
 	{
 		$oCompetences = new Application_Model_DbTable_Competences();

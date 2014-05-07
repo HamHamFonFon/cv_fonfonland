@@ -13,7 +13,7 @@ class DocumentsController extends Zend_Controller_Action
 		return dirname(APPLICATION_PATH) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'documents' . DIRECTORY_SEPARATOR;
 	}
 	
-	/*
+	/**
 	 * Recuperation des CV
 	 */
 	public function cvAction ()
@@ -56,8 +56,14 @@ class DocumentsController extends Zend_Controller_Action
 		}
 	}
 	
-	
-		private function _getTypeMime ($type)
+	/**
+	 * Retoutne le type MIME selon le type envoyé
+	 * 
+	 * @param $type string
+	 * 
+	 * @return string : type MIME
+	 */
+	private function _getTypeMime ($type)
 	{
 		$extensionToType = array (
 		        'ez'        => 'application/andrew-inset',

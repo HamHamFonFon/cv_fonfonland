@@ -15,6 +15,12 @@ class Application_Model_DbTable_Missions extends Zend_Db_Table_Abstract
 		$this->_id = $id;
 	}
 	
+	/**
+	 * Affiche les missions selon le id_emploi
+	 * 
+	 * @param integer $idEmploi
+	 * @param array $tabMissionArray
+	 */
 	public function getMissionsByIdEmploi ($idEmploi)
 	{
 		$select = $this->select()->from($this->_name, array('id_mission'));
@@ -34,6 +40,8 @@ class Application_Model_DbTable_Missions extends Zend_Db_Table_Abstract
 
 	/**
 	 * Retourne les données d'une mission
+	 * 
+	 * @return array
 	 */
 	private function _getInfoMission ()
 	{
@@ -49,6 +57,9 @@ class Application_Model_DbTable_Missions extends Zend_Db_Table_Abstract
 
 	/**
 	 * Retourne les competences techniques pour une mission
+	 * 
+	 * @param integer $current
+	 * @return array $listeCompetences
 	 */
 	private function _getEnvTechnique ($current)
 	{

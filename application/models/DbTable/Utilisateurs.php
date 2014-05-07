@@ -44,7 +44,11 @@ class Application_Model_DbTable_Utilisateurs extends Zend_Db_Table_Abstract
 	
 	// Methodes
 	
-	// Retourne un utilisateur
+	/**
+	 * Va chercher les informations utilisateur selon son ID
+	 * @param integer $idUser
+	 * @return 
+	 */
 	public function findUserById ($idUser)
 	{
 		if (isset($idUser) && !empty($idUser)) {

@@ -1,3 +1,6 @@
+<?php
+	$acl = new Fonfonblog_Acl();
+?>
 <header>
 	<h2><i class="fa fa-pencil-square-o"></i> <?php echo $this->escape($this->title); ?></h2>
 	<hr />
@@ -86,7 +89,11 @@
 							$ligneMission .= '<tr>';
 							$ligneMission .= '<td>' . $idMission . '</td>';
 							$ligneMission .= '<td>' . $mission . '</td>';
-							$ligneMission .= '<td><a type="button" href="' . $this->linkDelMission . $idMission . '" class="btn btn-primary btn-xs">Supprimer</a></td>';
+							if ($acl->isAllowed(Zend_Auth::getInstance()->getStorage()->read()->roles, 'btnFormAdministration')) {
+								$ligneMission .= '<td><a type="button" href="' . $this->linkDelMission . $idMission . '" class="btn btn-primary btn-xs">Supprimer</a></td>';
+							} else {
+								$ligneMission .= '<td><a type="button" href="#" class="btn btn-primary btn-xs">Supprimer</a></td>';
+							}
 							$ligneMission .= '</tr>';
 						}
 						echo $ligneMission;

@@ -40,6 +40,9 @@ class AuthController extends Zend_Controller_Action
 		$this->_process();
 	}*/
 	
+	/**
+	 * Formulaire de connexion
+	 */
 	public function loginAction ()
 	{
 		$this->view->pageTitle = "Connexion";
@@ -65,7 +68,7 @@ class AuthController extends Zend_Controller_Action
 		} 
 	}
 	
-	/*
+	/**
 	 * Processus d'authentification avec Zend_Auth
 	 */
 	private function _process ()
@@ -112,6 +115,9 @@ class AuthController extends Zend_Controller_Action
 	}
 	
 	
+	/**
+	 * Deconnexion
+	 */
 	public function logoutAction ()
 	{
 		Zend_Auth::getInstance()->clearIdentity();

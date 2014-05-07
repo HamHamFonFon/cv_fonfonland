@@ -3,7 +3,7 @@ class Admin_Form_Missions extends Zend_Form
 {
 	public function init()
 	{
-		
+		$acl = new Fonfonblog_Acl();
 		$this->setMethod('post');
 		$this->setOptions(array('class' => 'form-horizontal'));
 		
@@ -64,9 +64,15 @@ class Admin_Form_Missions extends Zend_Form
 		$this->addElement($listeCompetences);
 		
 		// bouton submit
-		$submit = new Zend_Form_Element_Submit('Envoyer');
-		$submit->setAttrib('id', 'submitFrmInscription');
-		$submit->setOptions(array('class' => 'btn btn-primary'));
+		if ($acl->isAllowed(Zend_Auth::getInstance()->getStorage()->read()->roles, 'btnFormAdministration')) {
+			$submit = new Zend_Form_Element_Submit('Envoyer');
+			$submit->setAttrib('id', 'submitFrmInscription');
+			$submit->setOptions(array('class' => 'btn btn-primary'));
+		} else {
+			$submit = new Zend_Form_Element_Button('Envoyer');
+			$submit->setOptions(array('class' => 'btn btn-primary'));
+		}
+		
 		$this->addElement($submit);
 		
 	}

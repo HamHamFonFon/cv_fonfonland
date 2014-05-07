@@ -2,6 +2,9 @@
 class Application_Form_Contact extends Zend_Form
 {
 	
+	/**
+	 * Formulaire de contact
+	 */
 	public function init()
 	{
 		$this->setMethod('post');
